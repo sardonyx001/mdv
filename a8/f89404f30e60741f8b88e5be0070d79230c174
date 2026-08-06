@@ -1,0 +1,102 @@
+web/components/icons/copy.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-21
+index.ts
+  s_92834ccd59a18d::t_b8ea09b401c754 2,27,33-36,38-39,43-46,48-63,66-90,96-104,110-112,117-118,122-124
+  s_92834ccd59a18d::t_79889971fb828e 5
+  s_92834ccd59a18d::t_1a733b5aecde29 23-25
+  s_92834ccd59a18d::t_03b0024c8a22fa 26
+web/components/icon-button.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-39
+web/components/icons/chevron-right.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-21
+web/components/sidebar.tsx
+  s_92834ccd59a18d::t_be0f9bb74a65d6 1-51
+web/index.html
+  s_92834ccd59a18d::t_c8971d9eba51a6 1-13
+web/components/icons/system.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-18
+.gitignore
+  s_92834ccd59a18d::t_576d6027eaf382 4
+web/components/icons/unfold-vertical.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-27
+web/context.ts
+  s_92834ccd59a18d::t_e587ce4603c451 1-27
+web/app.tsx
+  s_92834ccd59a18d::t_5ac08bdef6a946 1-37
+web/components/markdown/post-process.ts
+  s_92834ccd59a18d::t_5b1c612f7fe065 1,3-60,62-147
+  s_92834ccd59a18d::t_511a00f113f760 2
+  s_92834ccd59a18d::t_02c17e434aab34 61
+web/use-on-document-click.ts
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-30
+web/components/icons/settings.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-21
+web/components/icons/pin.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-21
+package.json
+  s_92834ccd59a18d::t_bc8e61da230f50 26-27,31-36
+web/components/icons/sun.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-26
+web/components/explorer/entry.tsx
+  s_92834ccd59a18d::t_670ce972d574c3 2,12-14,18-19,22-62,64-68,70,72-84
+  s_92834ccd59a18d::t_5b1c612f7fe065 1,3-11,15-17,20-21,63,69,71,85
+web/components/icons/fold-vertical.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-27
+web/components/icons/mouse.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-21
+web/components/markdown/mermaid.ts
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-92
+web/components/icons/close.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-21
+web/components/icons/panel-open.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-20
+web/components/icons/file.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-22
+web/components/markdown/index.tsx
+  s_92834ccd59a18d::t_a080186f630c13 1-65
+web/static/index.css
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-64
+web/components/icons/cursorline.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-21
+web/static/app.css
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-37
+web/static/favicon.svg
+  s_92834ccd59a18d::t_5b1c612f7fe065 1
+web/components/icons/moon.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-18
+web/utils.ts
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-67
+web/components/icons/panel-close.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-20
+web/components/icons/open-dir.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-20
+Taskfile.yml
+  s_92834ccd59a18d::t_cab2a512938dd3 4-6,8,10
+  s_92834ccd59a18d::t_427a0bd963ecd4 7
+web/components/icons/pin-off.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-23
+web/components/icons/check.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-20
+web/components/icons/dir.tsx
+  s_92834ccd59a18d::t_5b1c612f7fe065 1-20
+build-web.ts
+  s_92834ccd59a18d::t_2b3ef1c6f35f18 1-16
+web/index.tsx
+  s_92834ccd59a18d::t_b3230a78477b74 1-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "a8f89404f30e60741f8b88e5be0070d79230c174",
+  "prompts": {},
+  "sessions": {
+    "s_92834ccd59a18d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9443f24e-d011-4285-a970-42b40a3923b6",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "jam <lassouedjamel99@gmail.com>"
+    }
+  }
+}
