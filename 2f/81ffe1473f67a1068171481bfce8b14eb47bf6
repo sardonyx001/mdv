@@ -1,0 +1,19 @@
+.github/workflows/release.yml
+  s_92834ccd59a18d::t_333919c8b05e58 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "2f81ffe1473f67a1068171481bfce8b14eb47bf6",
+  "prompts": {},
+  "sessions": {
+    "s_92834ccd59a18d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9443f24e-d011-4285-a970-42b40a3923b6",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "jam <lassouedjamel99@gmail.com>"
+    }
+  }
+}
