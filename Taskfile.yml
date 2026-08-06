@@ -25,9 +25,10 @@ tasks:
         NEXT=$(svu next)
         echo "Current: $(svu current)"
         echo "Next:    $NEXT"
+        bun pm version "${NEXT#v}" --no-git-tag-version
         git-cliff --tag "$NEXT" --output CHANGELOG.md
-        git add CHANGELOG.md
-        git commit -m "chore(changelog): update for $NEXT" --no-verify
+        git add CHANGELOG.md package.json
+        git commit -m "chore(release): bump version to $NEXT" --no-verify
         git tag -a "$NEXT" -m "Release $NEXT"
         git push origin main --follow-tags
         echo "✓ Released $NEXT"
