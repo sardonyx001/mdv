@@ -1,0 +1,19 @@
+.gitignore
+  s_92834ccd59a18d::t_dcd2bda9cbf85c 2
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "53b6978d39d538c3fd79c67effa226f653a2506a",
+  "prompts": {},
+  "sessions": {
+    "s_92834ccd59a18d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9443f24e-d011-4285-a970-42b40a3923b6",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Jamel Eddine Lassoued <jameleddine.lassoued@rakuten.com>"
+    }
+  }
+}
