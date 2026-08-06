@@ -1,7 +1,13 @@
 version: '3'
 
 tasks:
+  build:web:
+    desc: Build React frontend
+    cmds:
+      - bun run build-web.ts
+
   build:
+    deps: [build:web]
     cmds:
       - bun build index.ts --compile --outfile mdv
 
