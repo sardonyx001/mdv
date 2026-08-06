@@ -2,7 +2,7 @@
 
 [![GitHub release](https://img.shields.io/github/v/release/sardonyx001/mdv)](https://github.com/sardonyx001/mdv/releases/latest)
 [![CI](https://img.shields.io/github/actions/workflow/status/sardonyx001/mdv/ci.yml?label=CI)](https://github.com/sardonyx001/mdv/actions/workflows/ci.yml)
-[![Built with Bun](https://img.shields.io/badge/built%20with-Bun-f9f1e1?logo=bun)](https://bun.sh)
+[![Bun](https://img.shields.io/badge/bun-%3E%3D1.3.0-f9f1e1?logo=bun)](https://bun.sh)
 [![Powered by pantsdown](https://img.shields.io/badge/powered%20by-pantsdown-e6c9a8)](https://github.com/wallpants/pantsdown)
 [![Inspired by github-preview.nvim](https://img.shields.io/badge/inspired%20by-github--preview.nvim-8957e5?logo=neovim)](https://github.com/wallpants/github-preview.nvim)
 
