@@ -53,6 +53,8 @@ jobs:
         with:
           body_path: RELEASE_NOTES.md
           files: mdv-*
+          draft: false
+          prerelease: false
 
       - name: Publish to npm
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2
