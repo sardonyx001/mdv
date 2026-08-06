@@ -1,0 +1,21 @@
+package.json
+  s_92834ccd59a18d::t_51835b912e386e 3
+Taskfile.yml
+  s_92834ccd59a18d::t_403b01598c45a9 28,30-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "7a81fecb7af150c3b305df763a113aa597e0ae8b",
+  "prompts": {},
+  "sessions": {
+    "s_92834ccd59a18d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9443f24e-d011-4285-a970-42b40a3923b6",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "jam <lassouedjamel99@gmail.com>"
+    }
+  }
+}
