@@ -8,42 +8,66 @@ permissions:
   contents: write
 
 jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: macos-latest
+            target: aarch64-apple-darwin
+          - os: macos-13
+            target: x86_64-apple-darwin
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-gnu
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
+      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2
+      - run: bun install
+      - run: bun build index.ts --compile --outfile mdv-${{ matrix.target }}
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4
+        with:
+          name: mdv-${{ matrix.target }}
+          path: mdv-${{ matrix.target }}
+
   release:
-    runs-on: macos-latest
+    needs: build
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
         with:
           fetch-depth: 0
 
-      - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2
-
-      - name: Install dependencies
-        run: bun install
-
-      - name: Build binary
-        run: bun build index.ts --compile --outfile mdv
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093  # v4
+        with:
+          merge-multiple: true
 
       - name: Generate changelog fragment
-        run: |
-          brew install git-cliff
-          git-cliff --latest --strip header --output RELEASE_NOTES.md
+        uses: orhun/git-cliff-action@b946ed27a675d653b308f29a7bbad813b85bf7aa  # v3
+        with:
+          args: --latest --strip header
+        env:
+          OUTPUT: RELEASE_NOTES.md
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65  # v2
         with:
           body_path: RELEASE_NOTES.md
-          files: mdv
+          files: mdv-*
 
       - name: Update Homebrew tap
         env:
           GH_TOKEN: ${{ secrets.TAP_TOKEN }}
         run: |
           VERSION=${GITHUB_REF_NAME}
-          SHA=$(shasum -a 256 mdv | awk '{print $1}')
+          SHA=$(shasum -a 256 mdv-aarch64-apple-darwin | awk '{print $1}')
           REPO="sardonyx001/homebrew-tap"
           FORMULA_PATH="Formula/mdv.rb"
-          CONTENT=$(printf 'class Mdv < Formula\n  desc "Minimal CLI markdown viewer with GitHub-accurate rendering and file tree sidebar"\n  homepage "https://github.com/sardonyx001/mdv"\n  url "https://github.com/sardonyx001/mdv/releases/download/%s/mdv"\n  sha256 "%s"\n  version "%s"\n\n  def install\n    bin.install "mdv"\n  end\n\n  test do\n    assert_match "usage", shell_output("#{bin}/mdv 2>&1", 1)\n  end\nend\n' "$VERSION" "$SHA" "${VERSION#v}")
-          ENCODED=$(echo "$CONTENT" | base64)
+          CONTENT=$(printf 'class Mdv < Formula\n  desc "Minimal CLI markdown viewer with GitHub-accurate rendering and file tree sidebar"\n  homepage "https://github.com/sardonyx001/mdv"\n  version "%s"\n\n  on_macos do\n    if Hardware::CPU.arm?\n      url "https://github.com/sardonyx001/mdv/releases/download/%s/mdv-aarch64-apple-darwin"\n      sha256 "%s"\n    else\n      url "https://github.com/sardonyx001/mdv/releases/download/%s/mdv-x86_64-apple-darwin"\n      sha256 "%s"\n    end\n  end\n\n  on_linux do\n    url "https://github.com/sardonyx001/mdv/releases/download/%s/mdv-x86_64-unknown-linux-gnu"\n    sha256 "%s"\n  end\n\n  def install\n    bin.install Dir["mdv-*"].first => "mdv"\n  end\n\n  test do\n    assert_match "usage", shell_output("#{bin}/mdv 2>&1", 1)\n  end\nend\n' \
+            "${VERSION#v}" \
+            "$VERSION" "$(shasum -a 256 mdv-aarch64-apple-darwin | awk '{print $1}')" \
+            "$VERSION" "$(shasum -a 256 mdv-x86_64-apple-darwin | awk '{print $1}')" \
+            "$VERSION" "$(shasum -a 256 mdv-x86_64-unknown-linux-gnu | awk '{print $1}')")
+          ENCODED=$(echo "$CONTENT" | base64 -w0)
           CURRENT_SHA=$(gh api "repos/${REPO}/contents/${FORMULA_PATH}" --jq '.sha' 2>/dev/null || echo "")
           if [ -n "$CURRENT_SHA" ]; then
             gh api "repos/${REPO}/contents/${FORMULA_PATH}" --method PUT \
