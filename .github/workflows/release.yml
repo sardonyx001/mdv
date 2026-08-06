@@ -14,8 +14,6 @@ jobs:
         include:
           - os: macos-latest
             target: aarch64-apple-darwin
-          - os: macos-13
-            target: x86_64-apple-darwin
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
     runs-on: ${{ matrix.os }}
@@ -72,7 +70,6 @@ jobs:
           VERSION: ${{ github.ref_name }}
         run: |
           ARM_SHA=$(shasum -a 256 mdv-aarch64-apple-darwin | awk '{print $1}')
-          X86_SHA=$(shasum -a 256 mdv-x86_64-apple-darwin | awk '{print $1}')
           LINUX_SHA=$(shasum -a 256 mdv-x86_64-unknown-linux-gnu | awk '{print $1}')
           REPO="sardonyx001/homebrew-tap"
           FORMULA_PATH="Formula/mdv.rb"
@@ -84,13 +81,8 @@ jobs:
             license "MIT"
 
             on_macos do
-              if Hardware::CPU.arm?
-                url "https://github.com/sardonyx001/mdv/releases/download/${VERSION}/mdv-aarch64-apple-darwin"
-                sha256 "${ARM_SHA}"
-              else
-                url "https://github.com/sardonyx001/mdv/releases/download/${VERSION}/mdv-x86_64-apple-darwin"
-                sha256 "${X86_SHA}"
-              end
+              url "https://github.com/sardonyx001/mdv/releases/download/${VERSION}/mdv-aarch64-apple-darwin"
+              sha256 "${ARM_SHA}"
             end
 
             on_linux do
