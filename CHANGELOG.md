@@ -4,12 +4,20 @@ All notable changes are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.3.0] - 2026-08-06
+## [0.4.0] - 2026-08-06
+
+### Bug Fixes
+
+- *(ci)* Replace git-cliff container action with pinned binary download
+- *(ci)* Upgrade git-cliff-action to v4 (composite, no Docker)
+- *(ci)* Tolerate asset conflicts on re-run
+- *(ci)* Use npm publish with OIDC trusted publishing via setup-node
 
 ### Features
 
 - *(ci)* Add arm64 Linux build target
 - *(ci)* Sign binaries with cosign keyless signing
+- *(ci)* Switch to npm trusted publishing (OIDC, no token needed)
 
 ## [0.2.1] - 2026-08-06
 
