@@ -1,0 +1,17 @@
+version: '3'
+
+tasks:
+  build:
+    cmds:
+      - bun build index.ts --compile --outfile mdv
+
+  install:
+    deps: [build]
+    cmds:
+      - cp mdv ~/.local/bin/mdv
+      - xattr -d com.apple.quarantine ~/.local/bin/mdv 2>/dev/null || true
+      - codesign -s - ~/.local/bin/mdv
+
+  default:
+    aliases: [all]
+    deps: [install]

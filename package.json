@@ -1,0 +1,9 @@
+{
+  "name": "mdview",
+  "version": "1.0.0",
+  "dependencies": {
+    "github-slugger": "^2.0.0",
+    "highlight.js": "^11.11.1",
+    "katex": "^0.18.1"
+  }
+}
