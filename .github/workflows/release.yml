@@ -11,11 +11,11 @@ jobs:
   release:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262  # v4
         with:
           fetch-depth: 0
 
-      - uses: oven-sh/setup-bun@v2
+      - uses: oven-sh/setup-bun@4bc047ad259df6fc24a6c9b0f9a0cb08cf17fbe  # v2
 
       - name: Install dependencies
         run: bun install
@@ -24,15 +24,36 @@ jobs:
         run: bun build index.ts --compile --outfile mdv
 
       - name: Generate changelog fragment
-        uses: orhun/git-cliff-action@v3
+        uses: orhun/git-cliff-action@b694f4b3e04e756e616c62ebf00a8b6c9c02a7a  # v3
         with:
-          config: ~/.config/git-cliff/cliff.toml
           args: --latest --strip header
         env:
           OUTPUT: RELEASE_NOTES.md
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@da05d552573ad5e6b9f7e1b9a1ee2d06f0fe6b1  # v2
         with:
           body_path: RELEASE_NOTES.md
           files: mdv
+
+      - name: Update Homebrew tap
+        env:
+          GH_TOKEN: ${{ secrets.TAP_TOKEN }}
+        run: |
+          VERSION=${GITHUB_REF_NAME}
+          SHA=$(shasum -a 256 mdv | awk '{print $1}')
+          REPO="sardonyx001/homebrew-tap"
+          FORMULA_PATH="Formula/mdv.rb"
+          CONTENT=$(printf 'class Mdv < Formula\n  desc "Minimal CLI markdown viewer with GitHub-accurate rendering and file tree sidebar"\n  homepage "https://github.com/sardonyx001/mdv"\n  url "https://github.com/sardonyx001/mdv/releases/download/%s/mdv"\n  sha256 "%s"\n  version "%s"\n\n  def install\n    bin.install "mdv"\n  end\n\n  test do\n    assert_match "usage", shell_output("#{bin}/mdv 2>&1", 1)\n  end\nend\n' "$VERSION" "$SHA" "${VERSION#v}")
+          ENCODED=$(echo "$CONTENT" | base64)
+          CURRENT_SHA=$(gh api "repos/${REPO}/contents/${FORMULA_PATH}" --jq '.sha' 2>/dev/null || echo "")
+          if [ -n "$CURRENT_SHA" ]; then
+            gh api "repos/${REPO}/contents/${FORMULA_PATH}" --method PUT \
+              --field message="chore: update mdv to ${VERSION}" \
+              --field content="${ENCODED}" \
+              --field sha="${CURRENT_SHA}"
+          else
+            gh api "repos/${REPO}/contents/${FORMULA_PATH}" --method PUT \
+              --field message="chore: add mdv formula ${VERSION}" \
+              --field content="${ENCODED}"
+          fi
