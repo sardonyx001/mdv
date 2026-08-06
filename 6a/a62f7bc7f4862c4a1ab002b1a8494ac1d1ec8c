@@ -1,0 +1,21 @@
+package.json
+  s_92834ccd59a18d::t_0898bbb772e47c 8
+index.ts
+  s_92834ccd59a18d::t_b811b6c395ae63 6,9-19
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "6aa62f7bc7f4862c4a1ab002b1a8494ac1d1ec8c",
+  "prompts": {},
+  "sessions": {
+    "s_92834ccd59a18d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9443f24e-d011-4285-a970-42b40a3923b6",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "jam <lassouedjamel99@gmail.com>"
+    }
+  }
+}
