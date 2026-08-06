@@ -1,0 +1,24 @@
+.github/workflows/ci.yml
+  s_92834ccd59a18d::t_9cb8b175d1e0a2 6-15,20,23-24
+.github/workflows/release.yml
+  s_92834ccd59a18d::t_33304246f14842 34
+  s_92834ccd59a18d::t_b455be15a1e56e 11-31,33,41-42,55,62,65-70
+  s_92834ccd59a18d::t_fcefdcbb9c8c49 45-49
+  s_92834ccd59a18d::t_68d1f954932ba2 40
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "9d78413609f6f6e66f2fdb7744f612100f6fa215",
+  "prompts": {},
+  "sessions": {
+    "s_92834ccd59a18d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9443f24e-d011-4285-a970-42b40a3923b6",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "jam <lassouedjamel99@gmail.com>"
+    }
+  }
+}
