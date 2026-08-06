@@ -1,7 +1,6 @@
 mdv
 mdview
 dist/
-web/dist/
 node_modules/
 pantsdown/node_modules/
 bun.lock
