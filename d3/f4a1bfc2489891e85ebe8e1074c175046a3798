@@ -1,0 +1,63 @@
+pantsdown/LICENSE
+  s_92834ccd59a18d::t_bcb11d385e49cc 1-162
+pantsdown/README.md
+  s_92834ccd59a18d::t_5d683a4e8fb684 1-203
+pantsdown/package.json
+  s_92834ccd59a18d::t_fa8a6b9b999f5a 1-79
+pantsdown/src/css/styles.css
+  s_92834ccd59a18d::t_065ae932ab443f 1-1438
+pantsdown/src/index.ts
+  s_92834ccd59a18d::t_ae3e7c386978eb 1-2
+pantsdown/src/javascript.ts
+  s_92834ccd59a18d::t_6828dc476a306f 1-390
+pantsdown/src/lexer.ts
+  s_92834ccd59a18d::t_b905be82f45a8a 1-421
+pantsdown/src/pantsdown.ts
+  s_92834ccd59a18d::t_3244aa2401f5bf 1-73
+pantsdown/src/parser.ts
+  s_92834ccd59a18d::t_0d980ba2886c3c 1-182
+pantsdown/src/renderer.ts
+  s_92834ccd59a18d::t_f150993417bf81 1-329
+pantsdown/src/rules/block.ts
+  s_92834ccd59a18d::t_f73bafd3106291 1-146
+pantsdown/src/rules/inline.ts
+  s_92834ccd59a18d::t_4dd225019fb112 1-208
+pantsdown/src/rules/other.ts
+  s_92834ccd59a18d::t_b4261451228b9c 1-79
+pantsdown/src/rules/utils.ts
+  s_92834ccd59a18d::t_9017ebfe67394f 1-18
+pantsdown/src/text-renderer.ts
+  s_92834ccd59a18d::t_5dc7706ce79e12 1-57
+pantsdown/src/tokenizer.ts
+  s_92834ccd59a18d::t_97f745939b21f3 1-1124
+pantsdown/src/types.ts
+  s_92834ccd59a18d::t_be4ad9dd8d2271 1-329
+pantsdown/src/utils.ts
+  s_92834ccd59a18d::t_02c42d46552f48 1-377
+.gitignore
+  s_92834ccd59a18d::t_5b097c911bc1b3 1-4
+README.md
+  s_92834ccd59a18d::t_8041105d6ea95a 1-45
+Taskfile.yml
+  s_92834ccd59a18d::t_47ccae21606c1c 1-17
+index.ts
+  s_92834ccd59a18d::t_ecbaed9a381b0c 1-181
+package.json
+  s_92834ccd59a18d::t_02eaaee7b36b80 1-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "d3f4a1bfc2489891e85ebe8e1074c175046a3798",
+  "prompts": {},
+  "sessions": {
+    "s_92834ccd59a18d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9443f24e-d011-4285-a970-42b40a3923b6",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "Jamel Eddine Lassoued <jameleddine.lassoued@rakuten.com>"
+    }
+  }
+}
