@@ -21,33 +21,52 @@ const explicitPort = parseInt(opts.port);
 const filePath = resolve(file);
 const root = dirname(filePath);
 
+const ICON_DIR = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="fill:var(--color-icon-directory);stroke:var(--color-icon-directory);flex-shrink:0"><path d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z"/></svg>`;
+const ICON_FILE = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--color-icon-file);flex-shrink:0"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>`;
+const ICON_CHEVRON = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--color-fg-subtle);flex-shrink:0;transition:transform 0.15s" class="chevron"><path d="m9 18 6-6-6-6"/></svg>`;
+
 function buildTree(dir: string, depth = 0): string {
   if (depth > 5) return "";
-  let html = "<ul>";
   let entries;
   try {
     entries = readdirSync(dir).filter(e => !e.startsWith(".") && e !== "node_modules");
-  } catch {
-    return "";
-  }
+  } catch { return ""; }
+
   entries.sort((a, b) => {
     const aIsDir = statSync(join(dir, a)).isDirectory();
     const bIsDir = statSync(join(dir, b)).isDirectory();
     if (aIsDir !== bIsDir) return aIsDir ? -1 : 1;
     return a.localeCompare(b);
   });
+
+  let html = "";
   for (const entry of entries) {
     const entryPath = join(dir, entry);
     const isDir = statSync(entryPath).isDirectory();
     const relPath = relative(root, entryPath);
+    const indent = depth * 11;
+    const extraIndent = isDir ? 0 : 20;
+
     if (isDir) {
-      html += `<li class="tree-dir"><span>📁 ${entry}</span>${buildTree(entryPath, depth + 1)}</li>`;
+      html += `
+        <div class="tree-entry tree-dir" data-path="${relPath}/" style="padding-left:${indent}px">
+          <div class="chevron-wrap">${ICON_CHEVRON}</div>
+          ${ICON_DIR}
+          <span class="entry-name">${entry}</span>
+        </div>
+        <div class="tree-children" data-parent="${relPath}/">
+          ${buildTree(entryPath, depth + 1)}
+        </div>`;
     } else {
       const isMd = entry.endsWith(".md");
-      html += `<li class="tree-file${isMd ? " tree-md" : ""}" data-path="${relPath}"><span>${isMd ? "📄" : "·"} ${entry}</span></li>`;
+      html += `
+        <div class="tree-entry tree-file${isMd ? " tree-md" : ""}" data-path="${relPath}" style="padding-left:${indent + extraIndent}px">
+          ${ICON_FILE}
+          <span class="entry-name">${entry}</span>
+        </div>`;
     }
   }
-  return html + "</ul>";
+  return html;
 }
 
 function renderFile(fp: string): string {
@@ -73,7 +92,7 @@ const page = `<!doctype html>
   <style>${css}</style>
   <style>
     * { box-sizing: border-box; }
-    body { margin: 0; padding: 0; display: flex; height: 100vh; font-family: -apple-system, sans-serif; }
+    body { margin: 0; padding: 0; display: flex; height: 100vh; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
 
     #sidebar {
       width: 260px;
@@ -81,51 +100,67 @@ const page = `<!doctype html>
       height: 100vh;
       overflow-y: auto;
       border-right: 1px solid var(--color-border-default);
-      background: var(--color-canvas-subtle);
-      padding: 12px 0;
+      background: var(--color-canvas-default);
+      padding: 8px 0;
       font-size: 13px;
     }
     #sidebar-title {
-      padding: 4px 16px 10px;
+      padding: 6px 12px 8px;
       font-size: 11px;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.05em;
       color: var(--color-fg-muted);
     }
-    #sidebar ul { list-style: none; margin: 0; padding: 0; }
-    #sidebar li { padding: 0; }
-    #sidebar li span {
-      display: block;
-      padding: 3px 16px;
-      cursor: default;
+
+    .tree-entry {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 34px;
+      margin: 0 6px;
+      padding-right: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--color-fg-default);
+      user-select: none;
+    }
+    .tree-entry:hover { background: var(--color-canvas-subtle); }
+    .tree-entry.active { background: var(--color-canvas-subtle); }
+    .tree-entry.active::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 20px;
+      border-radius: 2px;
+      background: var(--color-accent-fg);
+    }
+    .entry-name {
+      font-size: 13px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      color: var(--color-fg-default);
-    }
-    #sidebar .tree-md span { cursor: pointer; }
-    #sidebar .tree-md span:hover { background: var(--color-neutral-muted); border-radius: 4px; }
-    #sidebar .tree-md.active span {
-      background: var(--color-accent-emphasis);
-      color: white;
-      border-radius: 4px;
-    }
-    #sidebar .tree-dir > span { color: var(--color-fg-muted); font-weight: 500; }
-    #sidebar ul ul li span { padding-left: 28px; }
-    #sidebar ul ul ul li span { padding-left: 44px; }
-    #sidebar ul ul ul ul li span { padding-left: 60px; }
-
-    #main {
       flex: 1;
-      height: 100vh;
-      overflow-y: auto;
     }
-    #content {
-      max-width: 1012px;
-      margin: 0 auto;
-      padding: 44px;
+    .tree-entry:hover .entry-name { color: var(--color-accent-fg); text-decoration: underline; }
+    .tree-entry.active .entry-name { color: var(--color-accent-fg); }
+    .chevron-wrap {
+      display: flex;
+      align-items: center;
+      width: 16px;
+      flex-shrink: 0;
     }
+    .chevron { transition: transform 0.15s; }
+    .tree-dir.open > .chevron-wrap .chevron { transform: rotate(90deg); }
+    .tree-children { display: none; }
+    .tree-children.open { display: block; }
+
+    #main { flex: 1; height: 100vh; overflow-y: auto; }
+    #content { max-width: 1012px; margin: 0 auto; padding: 44px; }
   </style>
 </head>
 <body>
@@ -138,19 +173,39 @@ const page = `<!doctype html>
   </div>
   <script>${initialJs}</script>
   <script>
-    const root = ${JSON.stringify(root)};
     const content = document.getElementById('content');
 
+    // expand dirs that contain the initial file
+    const initialPath = ${JSON.stringify(initialRel)};
+    const parts = initialPath.split('/');
+    for (let i = 1; i < parts.length; i++) {
+      const dirPath = parts.slice(0, i).join('/') + '/';
+      const dirEl = document.querySelector('.tree-dir[data-path="' + dirPath + '"]');
+      const childEl = document.querySelector('.tree-children[data-parent="' + dirPath + '"]');
+      if (dirEl) dirEl.classList.add('open');
+      if (childEl) childEl.classList.add('open');
+    }
+
     function setActive(path) {
-      document.querySelectorAll('.tree-md').forEach(el => {
+      document.querySelectorAll('.tree-entry').forEach(el => {
         el.classList.toggle('active', el.dataset.path === path);
       });
     }
+    setActive(initialPath);
 
-    setActive(${JSON.stringify(initialRel)});
+    // dir toggle
+    document.querySelectorAll('.tree-dir').forEach(el => {
+      el.addEventListener('click', () => {
+        el.classList.toggle('open');
+        const children = document.querySelector('.tree-children[data-parent="' + el.dataset.path + '"]');
+        if (children) children.classList.toggle('open');
+      });
+    });
 
+    // file click
     document.querySelectorAll('.tree-md').forEach(el => {
-      el.querySelector('span').addEventListener('click', async () => {
+      el.addEventListener('click', async (e) => {
+        e.stopPropagation();
         const res = await fetch('/render?path=' + encodeURIComponent(el.dataset.path));
         const { html, javascript } = await res.json();
         content.innerHTML = html;
