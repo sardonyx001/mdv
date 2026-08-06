@@ -1,0 +1,25 @@
+Taskfile.yml
+  s_92834ccd59a18d::t_8325ad00b71d31 8-14
+package.json
+  s_92834ccd59a18d::t_e286518f8529b2 6,9,11-13
+.github/workflows/release.yml
+  s_92834ccd59a18d::t_5386bf50910dfe 70-71,77,81-86,88
+.gitignore
+  s_92834ccd59a18d::t_2e6af36d62f542 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "5c4fcef3afb2cfc779e61ffe9eaaeba09f34ff23",
+  "prompts": {},
+  "sessions": {
+    "s_92834ccd59a18d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9443f24e-d011-4285-a970-42b40a3923b6",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "jam <lassouedjamel99@gmail.com>"
+    }
+  }
+}
