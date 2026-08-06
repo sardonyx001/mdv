@@ -65,6 +65,7 @@ jobs:
             *.bundle
           draft: false
           prerelease: false
+          fail_on_unmatched_files: false
 
       - name: Publish to npm
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2
