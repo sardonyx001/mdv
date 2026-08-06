@@ -6,6 +6,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write  # required for cosign keyless signing
 
 jobs:
   build:
@@ -41,6 +42,13 @@ jobs:
         with:
           merge-multiple: true
 
+      - name: Sign binaries with cosign
+        uses: sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6  # v4.1.2
+      - run: |
+          for bin in mdv-*; do
+            cosign sign-blob --yes "$bin" --bundle "${bin}.bundle"
+          done
+
       - name: Generate changelog fragment
         uses: orhun/git-cliff-action@b946ed27a675d653b308f29a7bbad813b85bf7aa  # v3
         with:
@@ -52,7 +60,9 @@ jobs:
         uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65  # v2
         with:
           body_path: RELEASE_NOTES.md
-          files: mdv-*
+          files: |
+            mdv-*
+            *.bundle
           draft: false
           prerelease: false
 
