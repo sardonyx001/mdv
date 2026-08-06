@@ -1,0 +1,21 @@
+CHANGELOG.md
+  s_92834ccd59a18d::t_d3eb238f5d79d3 7-13
+package.json
+  s_92834ccd59a18d::t_f2e2bf6bd1e203 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.21",
+  "base_commit_sha": "88d00f55c45db7e9bc8520601fde9d351b2e241e",
+  "prompts": {},
+  "sessions": {
+    "s_92834ccd59a18d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9443f24e-d011-4285-a970-42b40a3923b6",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "jam <lassouedjamel99@gmail.com>"
+    }
+  }
+}
