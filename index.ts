@@ -3,9 +3,38 @@ import { readFileSync, readdirSync, statSync } from "fs";
 import { resolve, dirname, basename, join, relative } from "path";
 import css from "./pantsdown/src/css/styles.css" with { type: "text" };
 
-const file = process.argv[2];
+import pkg from "./package.json" with { type: "json" };
+const VERSION = pkg.version;
+const HELP = `mdv ${VERSION}
+Minimal CLI markdown viewer powered by pantsdown
+
+USAGE:
+  mdv <file.md>
+
+OPTIONS:
+  -h, --help     Print this help
+  -v, --version  Print version
+  -p, --port     Port to serve on (default: random)`;
+
+const args = process.argv.slice(2);
+
+if (args.includes("-h") || args.includes("--help")) {
+  console.log(HELP);
+  process.exit(0);
+}
+
+if (args.includes("-v") || args.includes("--version")) {
+  console.log(VERSION);
+  process.exit(0);
+}
+
+const portFlagIdx = args.findIndex(a => a === "-p" || a === "--port");
+const explicitPort = portFlagIdx !== -1 ? parseInt(args[portFlagIdx + 1]) : 0;
+
+const file = args.find(a => !a.startsWith("-") && args[args.indexOf(a) - 1] !== "-p" && args[args.indexOf(a) - 1] !== "--port");
 if (!file) {
-  console.error("usage: mdv <file.md>");
+  console.error("error: no file specified\n");
+  console.error(HELP);
   process.exit(1);
 }
 
@@ -157,7 +186,7 @@ const page = `<!doctype html>
 </html>`;
 
 const server = Bun.serve({
-  port: 0,
+  port: explicitPort,
   fetch(req) {
     const url = new URL(req.url);
     if (url.pathname === "/render") {
