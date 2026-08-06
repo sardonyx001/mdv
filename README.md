@@ -1,11 +1,12 @@
 # mdv
 
+[![GitHub release](https://img.shields.io/github/v/release/sardonyx001/mdv)](https://github.com/sardonyx001/mdv/releases/latest)
+[![CI](https://img.shields.io/github/actions/workflow/status/sardonyx001/mdv/ci.yml?label=CI)](https://github.com/sardonyx001/mdv/actions/workflows/ci.yml)
 [![Built with Bun](https://img.shields.io/badge/built%20with-Bun-f9f1e1?logo=bun)](https://bun.sh)
 [![Powered by pantsdown](https://img.shields.io/badge/powered%20by-pantsdown-e6c9a8)](https://github.com/wallpants/pantsdown)
 [![Inspired by github-preview.nvim](https://img.shields.io/badge/inspired%20by-github--preview.nvim-8957e5?logo=neovim)](https://github.com/wallpants/github-preview.nvim)
-[![macOS](https://img.shields.io/badge/macOS-only-000000?logo=apple)](https://www.apple.com/macos)
 
-A minimal CLI markdown viewer for the terminal. Opens any `.md` file in your browser with GitHub-accurate rendering, a file-tree sidebar, and automatic dark mode — no internet required.
+A minimal CLI markdown viewer. Opens any `.md` file in your browser with GitHub-accurate rendering, a file-tree sidebar, and automatic dark mode — no internet required.
 
 Built on top of [pantsdown](https://github.com/wallpants/pantsdown), the same renderer used by [github-preview.nvim](https://github.com/wallpants/github-preview.nvim).
 
@@ -19,8 +20,15 @@ Built on top of [pantsdown](https://github.com/wallpants/pantsdown), the same re
 
 ## Install
 
+### Homebrew
+
 ```bash
-# build from source (requires bun)
+brew install sardonyx001/tap/mdv
+```
+
+### From source (requires [Bun](https://bun.sh))
+
+```bash
 git clone https://github.com/sardonyx001/mdv
 cd mdv
 task install

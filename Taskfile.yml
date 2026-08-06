@@ -12,6 +12,26 @@ tasks:
       - xattr -d com.apple.quarantine ~/.local/bin/mdv 2>/dev/null || true
       - codesign -s - ~/.local/bin/mdv
 
+  hooks:
+    desc: Install git hooks via lefthook (run once after cloning)
+    cmds:
+      - lefthook install
+
+  release:
+    desc: Generate changelog, tag next semver, and push
+    cmds:
+      - git fetch --tags --quiet
+      - |
+        NEXT=$(svu next)
+        echo "Current: $(svu current)"
+        echo "Next:    $NEXT"
+        git-cliff --tag "$NEXT" --output CHANGELOG.md
+        git add CHANGELOG.md
+        git commit -m "chore(changelog): update for $NEXT" --no-verify
+        git tag -a "$NEXT" -m "Release $NEXT"
+        git push origin main --follow-tags
+        echo "✓ Released $NEXT"
+
   default:
     aliases: [all]
     deps: [install]
