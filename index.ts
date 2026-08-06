@@ -23,8 +23,8 @@ const pantsdown = new Pantsdown({ renderer: { detailsTagDefaultOpen: true } });
 const { html, javascript } = pantsdown.parse(content);
 
 const page = `<!doctype html>
-<html lang="en" class="pantsdown">
-<script>if (window.matchMedia('(prefers-color-scheme: dark)').matches) document.documentElement.classList.add('dark');</script>
+<html lang="en">
+<script>document.documentElement.className = 'pantsdown ' + (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');</script>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
