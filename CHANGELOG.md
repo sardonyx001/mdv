@@ -4,11 +4,18 @@ All notable changes are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.1] - 2026-08-06
+
+### Bug Fixes
+
+- Set 'pantsdown light/dark' class like the plugin does
+
 ## [0.5.0] - 2026-08-06
 
 ### Bug Fixes
 
 - Remove sidebar entirely, markdown-only viewer
+- *(ci)* Remove stale build-web step after sidebar revert
 
 ### Features
 
