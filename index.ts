@@ -3,40 +3,20 @@ import { readFileSync, readdirSync, statSync } from "fs";
 import { resolve, dirname, basename, join, relative } from "path";
 import css from "./pantsdown/src/css/styles.css" with { type: "text" };
 
+import { Command } from "commander";
 import pkg from "./package.json" with { type: "json" };
-const VERSION = pkg.version;
-const HELP = `mdv ${VERSION}
-Minimal CLI markdown viewer powered by pantsdown
 
-USAGE:
-  mdv <file.md>
+const program = new Command()
+  .name("mdv")
+  .description("Minimal CLI markdown viewer powered by pantsdown")
+  .version(pkg.version, "-v, --version")
+  .argument("<file>", "markdown file to view")
+  .option("-p, --port <number>", "port to serve on", "0")
+  .parse();
 
-OPTIONS:
-  -h, --help     Print this help
-  -v, --version  Print version
-  -p, --port     Port to serve on (default: random)`;
-
-const args = process.argv.slice(2);
-
-if (args.includes("-h") || args.includes("--help")) {
-  console.log(HELP);
-  process.exit(0);
-}
-
-if (args.includes("-v") || args.includes("--version")) {
-  console.log(VERSION);
-  process.exit(0);
-}
-
-const portFlagIdx = args.findIndex(a => a === "-p" || a === "--port");
-const explicitPort = portFlagIdx !== -1 ? parseInt(args[portFlagIdx + 1]) : 0;
-
-const file = args.find(a => !a.startsWith("-") && args[args.indexOf(a) - 1] !== "-p" && args[args.indexOf(a) - 1] !== "--port");
-if (!file) {
-  console.error("error: no file specified\n");
-  console.error(HELP);
-  process.exit(1);
-}
+const opts = program.opts();
+const file = program.args[0];
+const explicitPort = parseInt(opts.port);
 
 const filePath = resolve(file);
 const root = dirname(filePath);
