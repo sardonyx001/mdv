@@ -4,6 +4,17 @@ All notable changes are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2026-08-06
+
+### Bug Fixes
+
+- Remove sidebar entirely, markdown-only viewer
+
+### Features
+
+- *(ui)* Rewrite sidebar to match github-preview.nvim style
+- *(ui)* Replace hand-rolled sidebar with React app using plugin components
+
 ## [0.4.0] - 2026-08-06
 
 ### Bug Fixes
@@ -12,6 +23,12 @@ Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - *(ci)* Upgrade git-cliff-action to v4 (composite, no Docker)
 - *(ci)* Tolerate asset conflicts on re-run
 - *(ci)* Use npm publish with OIDC trusted publishing via setup-node
+- *(ci)* Use classic automation token for npm publish
+- *(ci)* Use setup-node with NODE_AUTH_TOKEN for npm publish
+- *(ci)* Remove setup-node to let npm use OIDC trusted publishing
+- *(ci)* Manually fetch OIDC token for npm trusted publishing
+- *(ci)* Setup-node with registry-url but no auth token for OIDC
+- *(npm)* Build JS bundle for bunx/npx, upgrade npm for OIDC trusted publishing
 
 ### Features
 
