@@ -4,6 +4,13 @@ All notable changes are documented here.
 Format follows [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 Versions follow [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-08-06
+
+### Features
+
+- *(ci)* Add arm64 Linux build target
+- *(ci)* Sign binaries with cosign keyless signing
+
 ## [0.2.1] - 2026-08-06
 
 ### Bug Fixes
