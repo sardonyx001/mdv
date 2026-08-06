@@ -3,12 +3,14 @@
   "version": "0.4.0",
   "description": "Minimal CLI markdown viewer with GitHub-accurate rendering and file tree sidebar",
   "bin": {
-    "mdv": "./index.ts"
+    "mdv": "./dist/cli.js"
   },
   "files": [
-    "index.ts",
-    "pantsdown/src"
+    "dist/cli.js"
   ],
+  "publishConfig": {
+    "provenance": true
+  },
   "keywords": ["markdown", "viewer", "cli", "pantsdown"],
   "author": "jam <lassouedjamel99@gmail.com>",
   "license": "MIT",

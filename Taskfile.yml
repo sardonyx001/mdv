@@ -5,6 +5,13 @@ tasks:
     cmds:
       - bun build index.ts --compile --outfile mdv
 
+  build:npm:
+    desc: Build JS bundle for npm publishing (bunx/npx compatible)
+    cmds:
+      - bun build index.ts --outfile dist/cli.js --target bun
+      - printf '#!/usr/bin/env bun\n' | cat - dist/cli.js > dist/cli.js.tmp && mv dist/cli.js.tmp dist/cli.js
+      - chmod +x dist/cli.js
+
   install:
     deps: [build]
     cmds:
