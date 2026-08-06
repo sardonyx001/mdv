@@ -67,11 +67,6 @@ jobs:
           prerelease: false
           fail_on_unmatched_files: false
 
-      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4
-        with:
-          node-version: '22'
-          registry-url: 'https://registry.npmjs.org'
-
       - name: Publish to npm
         uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2
 
@@ -79,8 +74,6 @@ jobs:
 
       - name: Publish to npm
         run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Update Homebrew tap
         env:
